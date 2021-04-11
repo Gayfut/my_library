@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyLibrary</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'uix/registration.css' %}" />
+</head>
+<body>
+    <div id="wrapper">
+        <img id="logo" src="https://i.pinimg.com/originals/1b/45/d1/1b45d16ef05586efc45af2190c723278.jpg">
+        <form id="registration-form" method="post">
+            <label id="email-label">New email!</label>
+            <input id="email-input" name="email" required="required" type="email" placeholder="myemail@gmail.com"/>
+
+            <label id="password-label">New password!</label>
+            <input id="password-input" name="password" required="required" type="password" placeholder="MyPassword"/>
+
+            <button id="submit-button" type="submit" value="Registration" onClick="location.href='/'">Registration</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+body {
+color: white;
+}
+
+#wrapper {
+display: grid;
+
+justify-items: center;
+align-items: center;
+
+justify-content: center;
+align-content: center;
+
+grid-template-areas:"logo"
+                    "message"
+                    "registration-form";
+grid-template-columns: 60%;
+grid-template-rows: 30% 5% 65%;
+}
+
+#logo {
+grid-area: logo;
+}
+
+#registration-form {
+grid-area: registration-form;
+
+
+display: grid;
+
+justify-items: center;
+align-items: center;
+
+justify-content: center;
+align-content: center;
+
+grid-template-areas:"email-label"
+                    "email-input"
+                    "password-label"
+                    "password-input"
+                    "submit-button";
+grid-template-columns: 60%;
+grid-template-rows: 20% 20% 20% 20% 20%;
+}
+
+#email-label {
+color: #78bcc5;
+
+grid-area: email-label;
+}
+
+#email-input {
+text-align: center;
+margin: 10px;
+
+grid-area: email-input;
+}
+
+#password-label {
+color: #d87b3e;
+
+grid-area: password-label;
+}
+
+#password-input {
+text-align: center;
+margin: 10px;
+
+grid-area: password-input;
+}
+
+#submit-button {
+margin: 10px;
+padding: 7px 20px;
+background-color: white;
+color: black;
+border: 2px solid #a74341;
+border-radius: 30%;
+
+transition-duration: 0.4s;
+-webkit-transition-duration: 0.4s;
+
+grid-area: submit-button;
+}
+
+#submit-button:hover {
+background-color: #a74341;
+color: white;
+}

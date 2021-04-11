@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyLibrary</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'uix/login.css' %}" />
+</head>
+<body>
+    <div id="wrapper">
+        <img id="logo" src="https://i.pinimg.com/originals/1b/45/d1/1b45d16ef05586efc45af2190c723278.jpg">
+
+        {% if message %}
+            <label id="message">{{ message }}</label>
+        {% endif %}
+
+        <form id="login-form" method="post">
+            <label id="email-label">Your email!</label>
+            <input id="email-input" name="email" required="required" type="email" placeholder="myemail@gmail.com"/>
+
+            <label id="password-label">Your password!</label>
+            <input id="password-input" name="password" required="required" type="password" placeholder="MyPassword"/>
+
+            <button id="submit-button" type="submit" value="Login">Login</button>
+            <button id="registration-button" value="Register" onClick="location.href='/registration'">Registration</button>
+        </form>
+    </div>
+</body>
+</html>
