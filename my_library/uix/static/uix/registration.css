@@ -22,6 +22,12 @@ grid-template-rows: 30% 5% 65%;
 grid-area: logo;
 }
 
+#message {
+color: #bec2c3;
+
+grid-area: message;
+}
+
 #registration-form {
 grid-area: registration-form;
 

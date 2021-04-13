@@ -15,6 +15,7 @@
         {% endif %}
 
         <form id="login-form" method="post">
+            {% csrf_token %}
             <label id="email-label">Your email!</label>
             <input id="email-input" name="email" required="required" type="email" placeholder="myemail@gmail.com"/>
 

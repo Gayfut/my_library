@@ -9,7 +9,13 @@
 <body>
     <div id="wrapper">
         <img id="logo" src="https://i.pinimg.com/originals/1b/45/d1/1b45d16ef05586efc45af2190c723278.jpg">
+
+        {% if message %}
+            <label id="message">{{ message }}</label>
+        {% endif %}
+
         <form id="registration-form" method="post">
+            {% csrf_token %}
             <label id="email-label">New email!</label>
             <input id="email-input" name="email" required="required" type="email" placeholder="myemail@gmail.com"/>
 
