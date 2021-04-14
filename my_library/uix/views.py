@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import redirect, render
@@ -44,6 +44,22 @@ def registration_view(request):
         return render(request, "uix/registration.html")
 
 
+def logout_view(request):
+    logout(request)
+
+    return redirect("/")
+
+
 @login_required(login_url='/login')
 def main_view(request):
-    return render(request, "uix/main.html")
+    username = request.user.username
+
+    return render(request, "uix/main.html", {"username": username})
+
+
+def profile_view(request):
+    username = request.user.username
+    email = request.user.email
+    password = request.user.password
+
+    return render(request, "uix/profile.html", {"username": username, "email": email, "password": password})
