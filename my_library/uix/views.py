@@ -1,8 +1,8 @@
-from random import randint
+from django.contrib.auth.models import User
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import redirect, render
-
-from .models import User
 
 
 def login_view(request):
@@ -14,7 +14,9 @@ def login_view(request):
             user = User.objects.get(email=email)
 
             if check_password(password, user.password):
-                return render(request, "uix/main.html")
+                login(request, user)
+
+                return redirect("/")
             else:
                 return render(request, "uix/login.html", {"message": "Email or password is incorrect!"})
         except User.DoesNotExist:
@@ -25,16 +27,23 @@ def login_view(request):
 
 def registration_view(request):
     if request.method == "POST":
+        username = request.POST.get("username")
         email = request.POST.get("email")
         password = make_password(request.POST.get("password"))
 
         try:
             user = User.objects.get(email=email)
+
             return render(request, "uix/registration.html", {"message": "This email is used!"})
         except User.DoesNotExist:
-            user = User(id=randint(1, 999999999), email=email, password=password)
+            user = User(username=username, email=email, password=password)
         user.save()
 
         return redirect("/")
     else:
         return render(request, "uix/registration.html")
+
+
+@login_required(login_url='/login')
+def main_view(request):
+    return render(request, "uix/main.html")

@@ -40,13 +40,28 @@ align-items: center;
 justify-content: center;
 align-content: center;
 
-grid-template-areas:"email-label"
+grid-template-areas:"username-label"
+                    "username-input"
+                    "email-label"
                     "email-input"
                     "password-label"
                     "password-input"
                     "submit-button";
 grid-template-columns: 60%;
-grid-template-rows: 20% 20% 20% 20% 20%;
+grid-template-rows: 15% 15% 15% 15% 15% 10%;
+}
+
+#username-label {
+color: #a74341;
+
+grid-area: username-label;
+}
+
+#username-input {
+text-align: center;
+margin: 10px;
+
+grid-area: username-input;
 }
 
 #email-label {
