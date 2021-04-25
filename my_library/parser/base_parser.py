@@ -1,16 +1,24 @@
+"""file with template-parent for parsers"""
+from time import sleep
+
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import (
+    NoSuchElementException,
+    ElementNotInteractableException,
+)
 from itertools import groupby
 
 from parser_settings import (
     book_link_attribute,
     img_link_attribute,
     download_link_attribute,
+    book_base_img,
 )
 
 
 class BaseParser:
+    """control template-parent for parsers"""
 
     LINK_TO_SITE = None
     SEARCH_MARGIN_SELECTOR = None
@@ -23,7 +31,7 @@ class BaseParser:
     DOWNLOAD_LINK_SELECTOR = None
 
     def __init__(self):
-        self._browser = webdriver.Firefox()
+        self._browser = webdriver.Firefox(options=self.__set_options())
         self.__main_window = None
 
     @staticmethod
@@ -35,12 +43,19 @@ class BaseParser:
         return options
 
     def start_parse(self, search_query):
+        """start parsing step by step"""
         self._open_site()
+        sleep(1)
         self._search_in_site(search_query)
+        sleep(1)
 
         books_links = self._get_links()
-        books_info = self._get_books_info(books_links)
-        print(books_info)
+        try:
+            books_info = self._get_books_info(books_links)
+        except IndexError:
+            books_info = []
+
+        return books_info
 
     def _open_site(self):
         """open site for parsing"""
@@ -58,10 +73,13 @@ class BaseParser:
         search_button = self._browser.find_element_by_css_selector(
             self.SEARCH_BUTTON_SELECTOR
         )
-        search_button.click()
+        try:
+            search_button.click()
+        except ElementNotInteractableException:
+            search_margin.submit()
 
     def _get_links(self):
-        """find elements and return products links"""
+        """find elements and return books links"""
         books_elements = self._browser.find_elements_by_css_selector(
             self.BOOK_ELEMENT_SELECTOR
         )
@@ -72,6 +90,8 @@ class BaseParser:
             books_links.append(book_link)
 
         books_links = [link for link, _ in groupby(books_links)]
+        books_links = books_links[:5]
+        print(books_links)
 
         return books_links
 
@@ -92,8 +112,15 @@ class BaseParser:
         return books_info
 
     def __get_book_info(self, link_to_book):
-        """return info about definite product"""
+        """return info about definite book"""
         self._browser.get(link_to_book)
+
+        try:
+            author = self._browser.find_element_by_css_selector(
+                self.AUTHOR_SELECTOR
+            ).text
+        except NoSuchElementException:
+            author = "No Author"
 
         try:
             description = self._browser.find_element_by_css_selector(
@@ -101,6 +128,13 @@ class BaseParser:
             ).text
         except NoSuchElementException:
             description = "No description"
+
+        try:
+            img_link = self._browser.find_element_by_css_selector(
+                self.IMG_SELECTOR
+            ).get_attribute(img_link_attribute)
+        except NoSuchElementException:
+            img_link = book_base_img
 
         try:
             download_link = self._browser.find_element_by_css_selector(
@@ -111,15 +145,15 @@ class BaseParser:
 
         book_info = {
             "name": self._browser.find_element_by_css_selector(self.NAME_SELECTOR).text,
-            "author": self._browser.find_element_by_css_selector(
-                self.AUTHOR_SELECTOR
-            ).text,
+            "author": author,
             "description": description,
-            "img_link": self._browser.find_element_by_css_selector(
-                self.IMG_SELECTOR
-            ).get_attribute(img_link_attribute),
+            "img_link": img_link,
             "link": link_to_book,
             "download_link": download_link,
         }
 
         return book_info
+
+    def stop_pars(self):
+        """stop parsing"""
+        self._browser.quit()
