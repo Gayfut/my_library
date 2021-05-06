@@ -1,6 +1,8 @@
 """file for control parser3 and his specification"""
-from base_parser import BaseParser
-from parser_settings import (
+from itertools import groupby
+
+from .base_parser import BaseParser
+from .parser_settings import (
     _3_link_to_site,
     _3_search_margin_selector,
     _3_search_button_selector,
@@ -10,6 +12,7 @@ from parser_settings import (
     _3_description_selector,
     _3_img_selector,
     _3_download_link_selector,
+    book_link_attribute,
 )
 
 
@@ -25,3 +28,22 @@ class Parser3(BaseParser):
     DESCRIPTION_SELECTOR = _3_description_selector
     IMG_SELECTOR = _3_img_selector
     DOWNLOAD_LINK_SELECTOR = _3_download_link_selector
+
+    def _get_links(self):
+        """find elements and return books links"""
+        books_elements = self._browser.find_elements_by_css_selector(
+            self.BOOK_ELEMENT_SELECTOR
+        )
+        books_links = []
+
+        for book_element in books_elements:
+            book_link = book_element.get_attribute(book_link_attribute)
+            if (book_link.find("/read") != -1) or (book_link.find("/readp") != -1) or (book_link.find("/fb2") != -1) or (book_link.find("/download_new") != -1):
+                continue
+            else:
+                books_links.append(book_link)
+
+        books_links = [link for link, _ in groupby(books_links)]
+        books_links = books_links[:10]
+
+        return books_links

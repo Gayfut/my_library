@@ -1,8 +1,10 @@
 """file for control parser1 and his specification"""
 from time import sleep
 
-from base_parser import BaseParser
-from parser_settings import (
+from selenium.common.exceptions import InvalidArgumentException
+
+from .base_parser import BaseParser
+from .parser_settings import (
     _1_link_to_get_site,
     _1_get_site_selector,
     _1_search_margin_selector,
@@ -32,18 +34,23 @@ class Parser1(BaseParser):
     def start_parse(self, search_query):
         """start parsing step by step"""
         self.__get_link_to_site()
-        self._open_site()
+        try:
+            self._open_site()
+        except InvalidArgumentException:
+            self.__get_link_to_site()
+            self._open_site()
         self._search_in_site(search_query)
 
         books_links = self._get_links()
         books_info = self._get_books_info(books_links)
-        print(books_info)
+
+        return books_info
 
     def __get_link_to_site(self):
         """get link to actual site for parsing"""
         self._browser.get(_1_link_to_get_site)
 
-        sleep(3)
+        sleep(5)
 
         self.LINK_TO_SITE = self._browser.find_element_by_css_selector(
             _1_get_site_selector

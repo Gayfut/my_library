@@ -1,6 +1,6 @@
 """file for control parser2 and his specification"""
-from base_parser import BaseParser
-from parser_settings import (
+from .base_parser import BaseParser
+from .parser_settings import (
     _2_link_to_site,
     _2_search_margin_selector,
     _2_search_button_selector,

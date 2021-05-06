@@ -9,7 +9,7 @@ from selenium.common.exceptions import (
 )
 from itertools import groupby
 
-from parser_settings import (
+from .parser_settings import (
     book_link_attribute,
     img_link_attribute,
     download_link_attribute,
@@ -90,8 +90,7 @@ class BaseParser:
             books_links.append(book_link)
 
         books_links = [link for link, _ in groupby(books_links)]
-        books_links = books_links[:5]
-        print(books_links)
+        books_links = books_links[:10]
 
         return books_links
 
@@ -154,6 +153,6 @@ class BaseParser:
 
         return book_info
 
-    def stop_pars(self):
+    def stop_parse(self):
         """stop parsing"""
         self._browser.quit()

@@ -13,11 +13,12 @@
 </header>
 <body>
     <div id="wrapper">
-        <div id="search-wrapper">
+        <form id="search-form" method="post">
+            {% csrf_token %}
             <label id="search-label">Please enter book name!</label>
             <input id="search-input" name="search" type="text" placeholder="Book name"/>
             <button id="search-button" type="submit" value="search">Search</button>
-        </div>
+        </form>
     </div>
 </body>
 </html>

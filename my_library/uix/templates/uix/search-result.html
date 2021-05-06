@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyLibrary | Search-result</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'uix/search-result.css' %}" />
+</head>
+<header>
+    <label><a id="username-a" href="/profile" target="_blank">{{ username }}</a></label>
+    <label><a id="books-a" href="/my-books" target="_blank">MyBooks</a></label>
+    <label><a id="logout-a" href="/logout">Logout</a></label>
+</header>
+<body>
+    <div id="wrapper">
+        <div id="site1">
+            {% if books_info1 %}
+                {% for book_info in books_info1 %}
+                <div class="book-info">
+                    <img class="img" src=" {{ book_info.img_link }} ">
+                    <label class="name">Name: {{ book_info.name }}</label>
+                    <label class="author">Author: {{ book_info.author }}</label>
+                    <label class="description">Description: {{ book_info.description }}... <a class="link-to-book" href="{{ book_info.link }}" target="_blank">More info-></a></label>
+                    <button class="download-button" value="Download" onClick="location.href='{{ book_info.download_link }}'" type="button">Download</button>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="book-info">
+                    <label class="name">Sorry. No data</label>
+                </div>
+            {% endif %}
+        </div>
+        <div id="site2">
+            {% if books_info2 %}
+                {% for book_info in books_info2 %}
+                <div class="book-info">
+                    <img class="img" src=" {{ book_info.img_link }} ">
+                    <label class="name">Name: {{ book_info.name }}</label>
+                    <label class="author">Author: {{ book_info.author }}</label>
+                    <label class="description">Description: {{ book_info.description }}... <a class="link-to-book" href="{{ book_info.link }}" target="_blank">More info-></a></label>
+                    <button class="download-button" value="Download" onClick="location.href='{{ book_info.download_link }}'" type="button">Download</button>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="book-info">
+                    <label class="name">Sorry. No data</label>
+                </div>
+            {% endif %}
+        </div>
+        <div id="site3">
+            {% if books_info3 %}
+                {% for book_info in books_info3 %}
+                <div class="book-info">
+                    <img class="img" src=" {{ book_info.img_link }} ">
+                    <label class="name">Name: {{ book_info.name }}</label>
+                    <label class="author">Author: {{ book_info.author }}</label>
+                    <label class="description">Description: {{ book_info.description }}... <a class="link-to-book" href="{{ book_info.link }}" target="_blank">More info-></a></label>
+                    <button class="download-button" value="Download" onClick="location.href='{{ book_info.download_link }}'" type="button">Download</button>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="book-info">
+                    <label class="name">Sorry. No data</label>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

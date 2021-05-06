@@ -1,0 +1,128 @@
+body {
+background-color: white;
+}
+
+#username-a {
+color: #78bcc5;
+text-decoration: none;
+}
+
+#books-a {
+color: #a74341;
+text-decoration: none;
+}
+
+#logout-a {
+color: red;
+text-decoration: none;
+}
+
+#wrapper {
+display: grid;
+
+justify-items: center;
+align-items: start;
+
+justify-content: center;
+align-content: center;
+
+grid-template-rows: 100%;
+grid-template-columns: 33% 33% 33%;
+grid-template-areas:
+"site1 site2 site3";
+
+margin: 5px;
+}
+
+#site1 {
+grid-area: site1;
+
+border: 2px solid #a74341;
+border-radius: 3%;
+}
+
+#site2 {
+grid-area: site2;
+
+border: 2px solid #78bcc5;
+border-radius: 3%;
+}
+
+#site3 {
+grid-area: site3;
+
+border: 2px solid #d87b3e;
+border-radius: 3%;
+}
+
+.book-info {
+display: grid;
+
+justify-items: center;
+align-items: center;
+
+justify-content: center;
+align-content: center;
+
+grid-template-areas:"img"
+                    "name"
+                    "author"
+                    "description"
+                    "download-button";
+grid-template-columns: 97%;
+grid-template-rows: 5% auto;
+}
+
+.img {
+grid-area: img;
+margin: 5px;
+}
+
+.name {
+grid-area: name;
+
+color: #a74341;
+margin: 5px;
+font-size: 15px;
+}
+
+.author {
+grid-area: author;
+
+color: #78bcc5;
+margin: 5px;
+font-size: 14px;
+}
+
+.description {
+grid-area: description;
+
+color: #d87b3e;
+margin: 5px;
+font-size: 13px;
+}
+
+.link-to-book {
+color: red;
+text-decoration: none;
+margin: 5px;
+}
+
+.download-button {
+margin: 10px;
+padding: 7px 20px;
+background-color: white;
+color: black;
+border: 2px solid red;
+border-radius: 30%;
+
+transition-duration: 0.4s;
+-webkit-transition-duration: 0.4s;
+
+grid-area: download-button;
+}
+
+.download-button:hover {
+background-color: red;
+color: white;
+}
