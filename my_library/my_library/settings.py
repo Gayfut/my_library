@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'uix',
+    'parser_books',
 
     'django.contrib.admin',
     'django.contrib.auth',

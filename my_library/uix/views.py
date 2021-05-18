@@ -4,9 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import redirect, render
 
-from parser.parser1 import Parser1
-from parser.parser2 import Parser2
-from parser.parser3 import Parser3
+from parser_books.parser.parser1 import Parser1
+from parser_books.parser.parser2 import Parser2
+from parser_books.parser.parser3 import Parser3
+from parser_books.parser.books_info_control import save_info, load_info
+from parser_books.models import Book
 
 
 def login_view(request):
@@ -73,9 +75,9 @@ def main_view(request):
         books_info3 = parser3.start_parse(search_query)
         parser3.stop_parse()
 
-        return render(request, "uix/search-result.html",
-                      {"username": username, "books_info1": books_info1, "books_info2": books_info2,
-                       "books_info3": books_info3})
+        save_info(books_info1, books_info2, books_info3)
+
+        return redirect("/search-result/")
 
     return render(request, "uix/main.html", {"username": username})
 
@@ -90,19 +92,29 @@ def profile_view(request):
 
 
 @login_required(login_url='/login')
-def search_view(request, search_query):
+def search_view(request):
     username = request.user.username
 
-    parser1 = Parser1()
-    books_info1 = parser1.start_parse(search_query)
-    parser1.stop_parse()
+    books_info1, books_info2, books_info3 = load_info()
 
-    parser2 = Parser2()
-    books_info2 = parser2.start_parse(search_query)
-    parser2.stop_parse()
+    if request.method == "POST":
+        book_link = request.POST.get("add")
+        for book in books_info1+books_info2+books_info3:
+            if book_link == book["link"]:
+                user_id = request.user.id
+                try:
+                    book_for_save = Book.objects.get(link=book["link"])
+                except Book.DoesNotExist:
+                    book_for_save = Book(link=book["link"])
+                book_for_save.name = book["name"]
+                book_for_save.author = book["author"]
+                book_for_save.description = book["description"]
+                book_for_save.img_link = book["img_link"]
+                book_for_save.download_link = book["download_link"]
+                book_for_save.save()
 
-    parser3 = Parser3()
-    books_info3 = parser3.start_parse(search_query)
-    parser3.stop_parse()
+                user = User.objects.get(pk=user_id)
+                user.profile.books.add(book_for_save)
+                user.save()
 
     return render(request, "uix/search-result.html", {"username": username, "books_info1": books_info1, "books_info2": books_info2, "books_info3": books_info3})

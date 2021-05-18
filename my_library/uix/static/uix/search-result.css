@@ -68,7 +68,7 @@ grid-template-areas:"img"
                     "name"
                     "author"
                     "description"
-                    "download-button";
+                    "buttons";
 grid-template-columns: 97%;
 grid-template-rows: 5% auto;
 }
@@ -108,6 +108,22 @@ text-decoration: none;
 margin: 5px;
 }
 
+.buttons {
+display: grid;
+
+justify-items: center;
+align-items: center;
+
+justify-content: center;
+align-content: center;
+
+grid-template-areas:"download-button add-button";
+grid-template-columns: 50% 50%;
+grid-template-rows: 100%;
+
+grid-area: buttons;
+}
+
 .download-button {
 margin: 10px;
 padding: 7px 20px;
@@ -123,6 +139,25 @@ grid-area: download-button;
 }
 
 .download-button:hover {
+background-color: red;
+color: white;
+}
+
+.add-button {
+margin: 10px;
+padding: 7px 20px;
+background-color: white;
+color: black;
+border: 2px solid red;
+border-radius: 30%;
+
+transition-duration: 0.4s;
+-webkit-transition-duration: 0.4s;
+
+grid-area: add-button;
+}
+
+.add-button:hover {
 background-color: red;
 color: white;
 }

@@ -21,7 +21,11 @@
                     <label class="name">Name: {{ book_info.name }}</label>
                     <label class="author">Author: {{ book_info.author }}</label>
                     <label class="description">Description: {{ book_info.description }}... <a class="link-to-book" href="{{ book_info.link }}" target="_blank">More info-></a></label>
+                    <form class="buttons" method="post">
+                        {% csrf_token %}
                     <button class="download-button" value="Download" onClick="location.href='{{ book_info.download_link }}'" type="button">Download</button>
+                        <button class="add-button" value="{{ book_info.link }}" name="add" type="submit">Add</button>
+                    </form>
                 </div>
                 {% endfor %}
             {% else %}
@@ -38,7 +42,11 @@
                     <label class="name">Name: {{ book_info.name }}</label>
                     <label class="author">Author: {{ book_info.author }}</label>
                     <label class="description">Description: {{ book_info.description }}... <a class="link-to-book" href="{{ book_info.link }}" target="_blank">More info-></a></label>
+                    <form class="buttons" method="post">
+                        {% csrf_token %}
                     <button class="download-button" value="Download" onClick="location.href='{{ book_info.download_link }}'" type="button">Download</button>
+                        <button class="add-button" value="{{ book_info.link }}" name="add" type="submit">Add</button>
+                    </form>
                 </div>
                 {% endfor %}
             {% else %}
@@ -55,7 +63,11 @@
                     <label class="name">Name: {{ book_info.name }}</label>
                     <label class="author">Author: {{ book_info.author }}</label>
                     <label class="description">Description: {{ book_info.description }}... <a class="link-to-book" href="{{ book_info.link }}" target="_blank">More info-></a></label>
+                    <form class="buttons" method="post">
+                        {% csrf_token %}
                     <button class="download-button" value="Download" onClick="location.href='{{ book_info.download_link }}'" type="button">Download</button>
+                        <button class="add-button" value="{{ book_info.link }}" name="add" type="submit">Add</button>
+                    </form>
                 </div>
                 {% endfor %}
             {% else %}
