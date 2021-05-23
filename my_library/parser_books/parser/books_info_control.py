@@ -1,3 +1,4 @@
+"""file for control parsed books info saving in json and loading from json"""
 import json
 import os
 
@@ -5,6 +6,7 @@ from .parser_settings import books_info_dir
 
 
 def save_info(books_info, info_number):
+    """save books info in json file"""
     try:
         with open(books_info_dir + "/books_info" + str(info_number) + ".json", "w", encoding="utf-8") as file_with_info:
             json.dump(books_info, file_with_info, ensure_ascii=False)
@@ -15,6 +17,7 @@ def save_info(books_info, info_number):
 
 
 def load_info(info_number):
+    """load info from json file"""
     try:
         with open(books_info_dir + "/books_info" + str(info_number) + ".json", encoding="utf-8") as file_with_info:
             books_info = json.load(file_with_info)

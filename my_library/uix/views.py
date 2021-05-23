@@ -10,6 +10,7 @@ from parser_books.models import Book
 
 
 def login_view(request):
+    """view for login page"""
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
@@ -30,6 +31,7 @@ def login_view(request):
 
 
 def registration_view(request):
+    """view for registration page"""
     if request.method == "POST":
         username = request.POST.get("username")
         email = request.POST.get("email")
@@ -49,6 +51,7 @@ def registration_view(request):
 
 
 def logout_view(request):
+    """view for logout"""
     logout(request)
 
     return redirect("/")
@@ -56,6 +59,7 @@ def logout_view(request):
 
 @login_required(login_url='/login')
 def main_view(request):
+    """view for main page with search function"""
     username = request.user.username
 
     if request.method == "POST":
@@ -81,6 +85,7 @@ def main_view(request):
 
 @login_required(login_url='/login')
 def profile_view(request):
+    """view for user profile page"""
     username = request.user.username
     email = request.user.email
 
@@ -89,6 +94,7 @@ def profile_view(request):
 
 @login_required(login_url='/login')
 def search_view(request):
+    """view for search result page"""
     username = request.user.username
 
     books_info1 = load_info(1)
@@ -119,6 +125,7 @@ def search_view(request):
 
 
 def get_books_info(user):
+    """return user books"""
     books_id_dict = user.profile.books.values('id')
     books_id = []
 
@@ -135,6 +142,7 @@ def get_books_info(user):
 
 @login_required(login_url='/login')
 def mybooks_view(request):
+    """view for my-books page"""
     username = request.user.username
 
     user_id = request.user.id
@@ -152,6 +160,7 @@ def mybooks_view(request):
 
 @login_required(login_url='/login')
 def book_error_view(request):
+    """view for book download link error"""
     username = request.user.username
 
     return render(request, "uix/book-error.html", {"username": username})

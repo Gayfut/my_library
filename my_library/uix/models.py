@@ -7,8 +7,9 @@ from parser_books.models import Book
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    books = models.ManyToManyField(Book)
+    """custom user class"""
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Chain to user class for modify him")
+    books = models.ManyToManyField(Book, verbose_name="User books")
 
 
 @receiver(post_save, sender=User)

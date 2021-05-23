@@ -1,4 +1,4 @@
-"""file with template-parent for parsers"""
+"""file with parser and his specification"""
 import json
 from time import sleep
 
@@ -23,7 +23,7 @@ from .parser_settings import (
 
 
 class Parser:
-    """control template-parent for parsers"""
+    """control parser"""
 
     LINK_TO_SITE = None
     SEARCH_MARGIN_SELECTOR = None
