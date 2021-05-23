@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MyLibrary | Profile</title>
+    <title>MyLibrary | Sorry</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'uix/profile.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'uix/book-error.css' %}" />
 </head>
 <header>
     <label><a id="main-a" href="/">Search</a></label>
@@ -13,9 +13,8 @@
 </header>
 <body>
     <div id="wrapper">
-        <div id="profile-wrapper">
-            <label id="username-label">Username: {{ username }}</label>
-            <label id="email-label">Email: {{ email }}</label>
+        <div id="error-wrapper">
+            <label id="error-label">Sorry. Download link deleted by legal owner :(</label>
         </div>
     </div>
 </body>

@@ -4,9 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import redirect, render
 
-from parser_books.parser.parser1 import Parser1
-from parser_books.parser.parser2 import Parser2
-from parser_books.parser.parser3 import Parser3
+from parser_books.parser.parser import Parser
 from parser_books.parser.books_info_control import save_info, load_info
 from parser_books.models import Book
 
@@ -63,19 +61,18 @@ def main_view(request):
     if request.method == "POST":
         search_query = request.POST.get("search")
 
-        parser1 = Parser1()
-        books_info1 = parser1.start_parse(search_query)
-        parser1.stop_parse()
+        parser = Parser()
 
-        parser2 = Parser2()
-        books_info2 = parser2.start_parse(search_query)
-        parser2.stop_parse()
+        books_info1 = parser.start_parse(search_query, 1)
+        save_info(books_info1, 1)
 
-        parser3 = Parser3()
-        books_info3 = parser3.start_parse(search_query)
-        parser3.stop_parse()
+        books_info2 = parser.start_parse(search_query, 2)
+        save_info(books_info2, 2)
 
-        save_info(books_info1, books_info2, books_info3)
+        books_info3 = parser.start_parse(search_query, 3)
+        save_info(books_info3, 3)
+
+        parser.stop_parse()
 
         return redirect("/search-result/")
 
@@ -86,16 +83,17 @@ def main_view(request):
 def profile_view(request):
     username = request.user.username
     email = request.user.email
-    password = request.user.password
 
-    return render(request, "uix/profile.html", {"username": username, "email": email, "password": password})
+    return render(request, "uix/profile.html", {"username": username, "email": email})
 
 
 @login_required(login_url='/login')
 def search_view(request):
     username = request.user.username
 
-    books_info1, books_info2, books_info3 = load_info()
+    books_info1 = load_info(1)
+    books_info2 = load_info(2)
+    books_info3 = load_info(3)
 
     if request.method == "POST":
         book_link = request.POST.get("add")
@@ -118,3 +116,42 @@ def search_view(request):
                 user.save()
 
     return render(request, "uix/search-result.html", {"username": username, "books_info1": books_info1, "books_info2": books_info2, "books_info3": books_info3})
+
+
+def get_books_info(user):
+    books_id_dict = user.profile.books.values('id')
+    books_id = []
+
+    for book_id in books_id_dict:
+        books_id.append(book_id["id"])
+
+    books_info = []
+    for book_id in books_id:
+        book = Book.objects.filter(id=book_id).first()
+        books_info.append(book)
+
+    return books_info
+
+
+@login_required(login_url='/login')
+def mybooks_view(request):
+    username = request.user.username
+
+    user_id = request.user.id
+    user = User.objects.get(pk=user_id)
+
+    if request.method == "POST":
+        book_id = request.POST.get("delete")
+
+        user.profile.books.filter(id=book_id).first().delete()
+
+        return render(request, "uix/my-books.html", {"username": username, "books_info": get_books_info(user)})
+
+    return render(request, "uix/my-books.html", {"username": username, "books_info": get_books_info(user)})
+
+
+@login_required(login_url='/login')
+def book_error_view(request):
+    username = request.user.username
+
+    return render(request, "uix/book-error.html", {"username": username})

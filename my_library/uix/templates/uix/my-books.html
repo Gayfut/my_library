@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyLibrary | MyBooks</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'uix/my-books.css' %}" />
+</head>
+<header>
+    <label><a id="username-a" href="/profile" target="_blank">{{ username }}</a></label>
+    <label><a id="search-a" href="/">Search</a></label>
+    <label><a id="logout-a" href="/logout">Logout</a></label>
+</header>
+<body>
+    <div id="wrapper">
+      <div id="books">
+        {% if books_info %}
+                {% for book_info in books_info %}
+                <div class="book-info">
+                    <img class="img" src=" {{ book_info.img_link }} ">
+                    <label class="name">Name: {{ book_info.name }}</label>
+                    <label class="author">Author: {{ book_info.author }}</label>
+                    <label class="description">Description: {{ book_info.description }}... <a class="link-to-book" href="{{ book_info.link }}" target="_blank">More info-></a></label>
+                    <form class="buttons" method="post">
+                        {% csrf_token %}
+                    <button class="download-button" value="Download" onClick="location.href='{{ book_info.download_link }}'" type="button">Download</button>
+                        <button class="delete-button" value="{{ book_info.id }}" name="delete" type="submit">Delete</button>
+                    </form>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="book-info">
+                    <label class="name">Sorry. No data</label>
+                </div>
+            {% endif %}
+      </div>
+    </div>
+</body>
+</html>

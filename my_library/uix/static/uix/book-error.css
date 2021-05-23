@@ -1,0 +1,60 @@
+body {
+background-color: white;
+}
+
+#main-a {
+color: #78bcc5;
+text-decoration: none;
+}
+
+#books-a {
+color: #a74341;
+text-decoration: none;
+}
+
+#logout-a {
+color: red;
+text-decoration: none;
+}
+
+#wrapper {
+display: grid;
+
+justify-items: center;
+align-items: center;
+
+justify-content: center;
+align-content: center;
+
+grid-template-areas:"error-wrapper";
+grid-template-columns: 65%;
+grid-template-rows: 65%;
+}
+
+#error-wrapper {
+background-color: white;
+border: 2px solid red;
+border-radius: 30%;
+margin: 30%;
+
+grid-area: error-wrapper;
+
+display: grid;
+
+justify-items: center;
+align-items: center;
+
+justify-content: center;
+align-content: center;
+
+grid-template-areas:"error-label";
+grid-template-columns: 100%;
+grid-template-rows: 20%;
+}
+
+#error-label {
+color: red;
+margin: 10px;
+
+grid-area: error-label;
+}

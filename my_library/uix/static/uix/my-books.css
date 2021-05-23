@@ -7,7 +7,7 @@ color: #78bcc5;
 text-decoration: none;
 }
 
-#books-a {
+#search-a {
 color: #a74341;
 text-decoration: none;
 }
@@ -27,31 +27,17 @@ justify-content: center;
 align-content: center;
 
 grid-template-rows: 100%;
-grid-template-columns: 33% 33% 33%;
+grid-template-columns: 100%;
 grid-template-areas:
-"site1 site2 site3";
+"books";
 
 margin: 5px;
 }
 
-#site1 {
-grid-area: site1;
+#books {
+grid-area: books;
 
 border: 2px solid #a74341;
-border-radius: 3%;
-}
-
-#site2 {
-grid-area: site2;
-
-border: 2px solid #78bcc5;
-border-radius: 3%;
-}
-
-#site3 {
-grid-area: site3;
-
-border: 2px solid #d87b3e;
 border-radius: 3%;
 }
 
@@ -117,7 +103,7 @@ align-items: center;
 justify-content: center;
 align-content: center;
 
-grid-template-areas:"download-button add-button";
+grid-template-areas:"download-button delete-button";
 grid-template-columns: 50% 50%;
 grid-template-rows: 100%;
 
@@ -129,7 +115,7 @@ margin: 10px;
 padding: 7px 20px;
 background-color: white;
 color: black;
-border: 2px solid red;
+border: 2px solid green;
 border-radius: 30%;
 
 transition-duration: 0.4s;
@@ -139,25 +125,25 @@ grid-area: download-button;
 }
 
 .download-button:hover {
-background-color: red;
+background-color: green;
 color: white;
 }
 
-.add-button {
+.delete-button {
 margin: 10px;
 padding: 7px 20px;
 background-color: white;
 color: black;
-border: 2px solid green;
+border: 2px solid red;
 border-radius: 30%;
 
 transition-duration: 0.4s;
 -webkit-transition-duration: 0.4s;
 
-grid-area: add-button;
+grid-area: delete-button;
 }
 
-.add-button:hover {
-background-color: green;
+.delete-button:hover {
+background-color: red;
 color: white;
 }

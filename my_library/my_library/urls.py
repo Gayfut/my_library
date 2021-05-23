@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from uix.views import login_view, registration_view, logout_view, main_view, profile_view, search_view
+from uix.views import login_view, registration_view, logout_view, main_view, profile_view, search_view, mybooks_view, book_error_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +25,7 @@ urlpatterns = [
     path('profile/', profile_view),
     path('logout/', logout_view),
     path('search-result/', search_view),
+    path('my-books/', mybooks_view),
     path('', main_view),
+    path('book-error/', book_error_view),
 ]
