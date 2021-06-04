@@ -12,4 +12,4 @@
 ##### * PostgreSQL
 
 ## **Scheme**
-![alt text](https://imgur.com/a/1ITONkU)
+![alt scheme](https://i.imgur.com/3ElR9K3.png)
