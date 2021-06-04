@@ -68,13 +68,13 @@ def main_view(request):
         parser = Parser()
 
         books_info1 = parser.start_parse(search_query, 1)
-        save_info(books_info1, 1)
+        save_info(books_info1, 1, username)
 
         books_info2 = parser.start_parse(search_query, 2)
-        save_info(books_info2, 2)
+        save_info(books_info2, 2, username)
 
         books_info3 = parser.start_parse(search_query, 3)
-        save_info(books_info3, 3)
+        save_info(books_info3, 3, username)
 
         parser.stop_parse()
 
@@ -97,9 +97,9 @@ def search_view(request):
     """view for search result page"""
     username = request.user.username
 
-    books_info1 = load_info(1)
-    books_info2 = load_info(2)
-    books_info3 = load_info(3)
+    books_info1 = load_info(1, username)
+    books_info2 = load_info(2, username)
+    books_info3 = load_info(3, username)
 
     if request.method == "POST":
         book_link = request.POST.get("add")
