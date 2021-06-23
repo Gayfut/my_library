@@ -2,6 +2,7 @@
 
 ## **Description**
 #### By this project you can search your favorites books - save and download it!
+#### (P.S. for work need scraper settings and options)
 
 ## **Stack**
 #### 1. HTML5
